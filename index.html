@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.R Sublimações</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2a9d8f, #e9c46a);
+            margin: 0;
+            padding: 0;
+            color: #264653;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background-color: rgba(38, 70, 83, 0.8);
+            margin: 10px auto;
+            width: 96%;
+            border-radius: 20px;
+        }
+
+        .logo img {
+            width: 150px;
+        }
+
+        .carrinho {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .carrinho img {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        .carrinho img:hover {
+            transform: scale(1.1);
+        }
+
+        .carrinho .contador {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #e76f51;
+            color: #f4a261;
+            border-radius: 50%;
+            padding: 5px 8px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: #f4a261;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #e9c46a;
+        }
+
+        .banner {
+            background-color: rgba(38, 70, 83, 0.8);
+            padding: 20px;
+            margin: 10px auto;
+            width: 96%;
+            border-radius: 20px;
+            text-align: center;
+            color: #f4a261;
+        }
+
+        .products {
+            margin: 20px auto;
+            max-width: 1200px;
+            flex: 1;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            color: #264653;
+            border-radius: 10px;
+            width: 250px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-bottom: 2px solid #e9c46a;
+        }
+
+        .card h3 {
+            margin: 10px 0;
+        }
+
+        .card p {
+            flex-grow: 1;
+        }
+
+        .buy-button {
+            background-color: #e76f51;
+            color: #f4a261;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .buy-button:hover {
+            background-color: #f4a261;
+            color: #264653;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #2a9d8f, #e9c46a);
+            color: #264653;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .carrinho {
+                margin: 10px 0;
+            }
+
+            .card {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo img {
+                width: 100px;
+            }
+
+            .banner h2 {
+                font-size: 1.5rem;
+            }
+
+            .banner p {
+                font-size: 1rem;
+            }
+
+            .card {
+                padding: 10px;
+            }
+
+            .card h3 {
+                font-size: 1.2rem;
+            }
+
+            .card p {
+                font-size: 0.9rem;
+            }
+
+            .buy-button {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/logo.jpeg" alt="A.R Sublimações Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="personaliza.html">Personalize Aqui</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="cadastrar.html">Cadastrar</a></li>                
+                <li><a href="pagamento.html">Pagamento</a></li>
+                <li class="carrinho"><a href="carrinho.html">
+                        <img src="img/carrinho.png" alt="Carrinho">
+                        <span class="contador">3</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="banner">
+        <h2>Bem-vindo à A.R Sublimações</h2>
+        <p>Estampas exclusivas e criativas para você!</p>
+    </section>
+
+    <section class="products">
+        <div class="card-container">
+            <div class="card">
+                <img src="img/carro1.jpg" alt="Estampas Coloridas">
+                <h3>Estampas Coloridas</h3>
+                <h3>R$35,00</h3>
+                <p>Designs vibrantes e cheios de vida para suas roupas.</p>
+                <a href="pagamento.html">
+                    <button class="buy-button">Comprar Agora</button>
+                </a>
+            </div>
+            <div class="card">
+                <img src="img/carro1.jpg" alt="Personalização">
+                <h3>Personalização</h3>
+                <h3>R$45,00</h3>
+                <p>Crie estampas personalizadas para eventos e ocasiões especiais.</p>
+                <a href="pagamento.html">
+                    <button class="buy-button">Comprar Agora</button>
+                </a>
+            </div>
+            <div class="card">
+                <img src="img/carro1.jpg" alt="Alta Qualidade">
+                <h3>Alta Qualidade</h3>
+                <h3>R$50,00</h3>
+                <p>Usamos materiais de alta qualidade para garantir durabilidade.</p>
+                <a href="pagamento.html">
+                    <button class="buy-button">Comprar Agora</button>
+                </a>
+            </div>
+            <div class="card">
+                <img src="img/carro1.jpg" alt="Estampas Geométricas">
+                <h3>Estampas Geométricas</h3>
+                <h3>R$40,00</h3>
+                <p>Estampas modernas com formas geométricas únicas.</p>
+                <a href="pagamento.html">
+                    <button class="buy-button">Comprar Agora</button>
+                </a>
+            </div>
+            <div class="card">
+                <img src="img/carro1.jpg" alt="Estampas Florais">
+                <h3>Estampas Florais</h3>
+                <h3>R$38,00</h3>
+                <p>Designs florais elegantes para um toque natural.</p>
+                <a href="pagamento.html">
+                    <button class="buy-button">Comprar Agora</button>
+                </a>
+            </div>
+            <div class="card">
+                <img src="img/carro1.jpg" alt="Estampas Minimalistas">
+                <h3>Estampas Minimalistas</h3>
+                <h3>R$30,00</h3>
+                <p>Estampas simples e sofisticadas para um visual clean.</p>
+                <a href="pagamento.html">
+                    <button class="buy-button">Comprar Agora</button>
+                </a>
+            </div>
+            <div class="card">
+                <img src="img/carro1.jpg" alt="Estampas Temáticas">
+                <h3>Estampas Temáticas</h3>
+                <h3>R$42,00</h3>
+                <p>Estampas inspiradas em temas culturais e sazonais.</p>
+                <a href="pagamento.html">
+                    <button class="buy-button">Comprar Agora</button>
+                </a>
+            </div>
+            <div class="card">
+                <img src="img/carro1.jpg" alt="Estampas Esportivas">
+                <h3>Estampas Esportivas</h3>
+                <h3>R$37,00</h3>
+                <p>Designs dinâmicos para os amantes de esportes.</p>
+                <a href="pagamento.html">
+                    <button class="buy-button">Comprar Agora</button>
+                </a>
+            </div>
+            <div class="card">
+                <img src="img/carro1.jpg" alt="Estampas Infantis">
+                <h3>Estampas Infantis</h3>
+                <h3>R$32,00</h3>
+                <p>Estampas divertidas para crianças de todas as idades.</p>
+                <a href="pagamento.html">
+                    <button class="buy-button">Comprar Agora</button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 A.R Sublimações. Todos os direitos reservados.</p>
+        <p>Criado por Alex Reis</p>
+    </footer>
+</body>
+
+</html>
