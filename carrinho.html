@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de Compras - A.R Sublimações</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #2a9d8f, #e9c46a);
+            color: #264653;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            color: #264653;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #264653;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e9c46a;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item span {
+            font-weight: bold;
+        }
+
+        .cart-item button {
+            background-color: #e76f51;
+            color: #f4a261;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-item button:hover {
+            background-color: #f4a261;
+            color: #264653;
+        }
+
+        .total {
+            text-align: right;
+            font-size: 20px;
+            margin-top: 20px;
+            color: #264653;
+        }
+
+        .btn-finalizar {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #e76f51;
+            border: none;
+            color: #f4a261;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-finalizar:hover {
+            background-color: #f4a261;
+            color: #264653;
+        }
+
+        .empty-cart {
+            text-align: center;
+            font-size: 18px;
+            color: #264653;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Carrinho de Compras</h1>
+    <div id="cart-items">
+        <!-- Itens do carrinho serão inseridos aqui dinamicamente -->
+    </div>
+    <p class="total">Total: R$ <span id="total">0.00</span></p>
+    <button class="btn-finalizar" onclick="finalizarCompra()">Finalizar Compra</button>
+</div>
+
+<script>
+    // Carregar carrinho do localStorage
+    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    function exibirCarrinho() {
+        const cartItems = document.getElementById('cart-items');
+        let total = 0;
+
+        if (carrinho.length === 0) {
+            cartItems.innerHTML = `<p class="empty-cart">Seu carrinho está vazio.</p>`;
+        } else {
+            cartItems.innerHTML = '';
+            carrinho.forEach((item, index) => {
+                total += item.preco;
+                cartItems.innerHTML += `
+                    <div class="cart-item">
+                        <span>${item.nome}</span> 
+                        <span>R$ ${item.preco.toFixed(2)}</span>
+                        <button onclick="removerItem(${index})">Remover</button>
+                    </div>`;
+            });
+        }
+
+        document.getElementById('total').textContent = total.toFixed(2);
+    }
+
+    function removerItem(index) {
+        carrinho.splice(index, 1);
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+        exibirCarrinho();
+    }
+
+    function finalizarCompra() {
+        if (carrinho.length > 0) {
+            alert('Compra finalizada! Redirecionando para a página de pagamento...');
+            window.location.href = 'pagamento.html';
+        } else {
+            alert('Seu carrinho está vazio!');
+        }
+    }
+
+    // Inicializar a exibição do carrinho ao carregar a página
+    window.onload = exibirCarrinho;
+</script>
+
+</body>
+</html>
