@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - A.R Sublimações</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #2a9d8f, #e9c46a);
+            margin: 0;
+            padding: 0;
+            color: #264653;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+        .home-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #f4a261;
+            font-size: 24px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: rgba(38, 70, 83, 0.8);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+        .home-button:hover {
+            background-color: rgba(244, 162, 97, 0.3);
+        }
+        .home-button:before {
+            content: '←';
+        }
+        .login-container {
+            background-color: rgba(38, 70, 83, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: #f4a261;
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            color: #264653;
+        }
+        .login-container input[type="submit"] {
+            background-color: #e76f51;
+            color: #f4a261;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        .login-container input[type="submit"]:hover {
+            background-color: #f4a261;
+            color: #264653;
+        }
+        .login-container p {
+            margin-top: 20px;
+        }
+        .login-container a {
+            color: #e9c46a;
+            text-decoration: none;
+        }
+        .login-container a:hover {
+            text-decoration: underline;
+            color: #f4a261;
+        }
+        .error-message {
+            color: #e63946;
+            font-size: 14px;
+            display: none;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="home-button" title="Voltar à tela inicial"></a>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" placeholder="Usuário" name="username" id="username" required>
+            <input type="password" placeholder="Senha" name="password" id="password" required>
+            <p class="error-message" id="errorMsg">Usuário ou senha inválidos!</p>
+            <input type="submit" value="Entrar">
+        </form>
+        <p>Não tem uma conta? <a href="cadastrar.html">Cadastre-se</a></p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Previne o envio padrão do formulário
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const errorMsg = document.getElementById('errorMsg');
+
+            if (!username || !password) {
+                errorMsg.style.display = 'block';
+            } else {
+                errorMsg.style.display = 'none';
+                // Simulação de autenticação (pode ser substituído por lógica real)
+                alert('Login realizado com sucesso!');
+                // Redirecionar para a página inicial ou outra página após login
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+
+</body>
+</html>
