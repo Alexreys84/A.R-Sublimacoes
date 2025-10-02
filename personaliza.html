@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalize Suas Imagens - A.R Sublimações</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2a9d8f, #e9c46a);
+            margin: 0;
+            padding: 3vw;
+            color: #264653;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        .home-button {
+            position: fixed;
+            top: 2vw;
+            left: 2vw;
+            color: #f4a261;
+            font-size: clamp(1.5rem, 3vw, 1.8rem);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.8rem;
+            background-color: rgba(38, 70, 83, 0.8);
+            border-radius: 50%;
+            width: clamp(35px, 5vw, 40px);
+            height: clamp(35px, 5vw, 40px);
+            justify-content: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            z-index: 1000;
+        }
+        .home-button:hover {
+            background-color: rgba(244, 162, 97, 0.3);
+            transform: scale(1.1);
+        }
+        .home-button:before {
+            content: '←';
+        }
+        .upload-container {
+            background: rgba(38, 70, 83, 0.1);
+            backdrop-filter: blur(10px);
+            padding: clamp(20px, 5vw, 40px);
+            border-radius: 20px;
+            width: 100%;
+            max-width: clamp(300px, 90vw, 450px);
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            color: #f4a261;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .upload-container h2 {
+            margin-bottom: clamp(15px, 3vw, 25px);
+            font-size: clamp(1.5rem, 3vw, 1.75rem);
+            font-weight: 600;
+        }
+        .upload-container .form-group {
+            position: relative;
+            margin-bottom: clamp(15px, 3vw, 25px);
+        }
+        .upload-container label {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+            color: #f4a261;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        .upload-container input:focus + label,
+        .upload-container input:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 10px;
+            font-size: clamp(0.625rem, 1.2vw, 0.75rem);
+            color: #e9c46a;
+            background: rgba(38, 70, 83, 0.8);
+            padding: 0 5px;
+            border-radius: 4px;
+        }
+        .upload-container input[type="email"],
+        .upload-container input[type="file"] {
+            margin: 10px 0;
+            padding: clamp(10px, 2vw, 14px);
+            width: 100%;
+            border-radius: 10px;
+            border: 2px solid #e9c46a;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #264653;
+            box-sizing: border-box;
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .upload-container input[type="email"]:focus,
+        .upload-container input[type="file"]:focus {
+            border-color: #f4a261;
+            box-shadow: 0 0 8px rgba(244, 162, 97, 0.3);
+            outline: none;
+        }
+        .upload-container input.invalid {
+            border-color: #e63946;
+            box-shadow: 0 0 8px rgba(230, 57, 70, 0.3);
+        }
+        .upload-container input[type="submit"] {
+            background: linear-gradient(90deg, #e76f51, #f4a261);
+            color: #264653;
+            padding: clamp(10px, 2vw, 14px);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: clamp(0.875rem, 1.8vw, 1rem);
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            touch-action: manipulation;
+        }
+        .upload-container input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(231, 111, 81, 0.4);
+        }
+        .upload-container input[type="submit"]:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            color: #666666;
+            transform: none;
+            box-shadow: none;
+        }
+        .upload-container .preview-container {
+            margin: clamp(15px, 3vw, 25px) 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .upload-container .preview-item {
+            position: relative;
+            max-width: clamp(100px, 20vw, 120px);
+        }
+        .upload-container .preview-item img {
+            max-width: 100%;
+            max-height: clamp(100px, 20vw, 120px);
+            border-radius: 8px;
+            border: 2px solid #e9c46a;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        .upload-container .preview-item img:hover {
+            transform: scale(1.05);
+        }
+        .upload-container .preview-item.invalid img {
+            border-color: #e63946;
+        }
+        .upload-container .remove-image {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e63946;
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+        .upload-container .remove-image:hover {
+            transform: scale(1.2);
+        }
+        .upload-container .error-container {
+            background: rgba(230, 57, 70, 0.1);
+            border: 1px solid #e63946;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            display: none;
+            position: relative;
+            animation: shake 0.3s ease-in-out;
+        }
+        .upload-container .error-container ul {
+            margin: 0;
+            padding-left: 20px;
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+            color: #e63946;
+            text-align: left;
+        }
+        .upload-container .error-container .close-error {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e63946;
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .upload-container .error-container .close-error:hover {
+            background: #d00000;
+        }
+        .upload-container .success-message {
+            color: #e9c46a;
+            font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+            margin: 10px 0;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(244, 162, 97, 0.2);
+            border-radius: 2px;
+            margin-top: 10px;
+            display: none;
+        }
+        .progress-bar.active {
+            display: block;
+        }
+        .progress-bar::before {
+            content: '';
+            display: block;
+            width: 0;
+            height: 100%;
+            background: #e76f51;
+            border-radius: 2px;
+            animation: progress 1.5s ease-in-out forwards;
+        }
+        @keyframes progress {
+            to { width: 100%; }
+        }
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .upload-container {
+                max-width: 90vw;
+                padding: clamp(15px, 4vw, 30px);
+            }
+            .upload-container h2 {
+                font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+            }
+            .home-button {
+                top: 1.5vw;
+                left: 1.5vw;
+                width: clamp(30px, 4.5vw, 35px);
+                height: clamp(30px, 4.5vw, 35px);
+                font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            }
+            .upload-container .preview-item {
+                max-width: clamp(80px, 18vw, 100px);
+            }
+            .upload-container .preview-item img {
+                max-height: clamp(80px, 18vw, 100px);
+            }
+        }
+        @media (max-width: 480px) {
+            .upload-container {
+                padding: clamp(10px, 3vw, 20px);
+            }
+            .upload-container h2 {
+                font-size: clamp(1.125rem, 2.2vw, 1.25rem);
+            }
+            .upload-container label {
+                font-size: clamp(0.625rem, 1.2vw, 0.75rem);
+            }
+            .upload-container input[type="email"],
+            .upload-container input[type="file"],
+            .upload-container input[type="submit"] {
+                padding: clamp(8px, 2vw, 10px);
+                font-size: clamp(0.625rem, 1.2vw, 0.75rem);
+            }
+            .upload-container .preview-item {
+                max-width: clamp(70px, 15vw, 90px);
+            }
+            .upload-container .preview-item img {
+                max-height: clamp(70px, 15vw, 90px);
+            }
+            .upload-container .error-container ul,
+            .upload-container .success-message {
+                font-size: clamp(0.625rem, 1.2vw, 0.75rem);
+            }
+        }
+        @media (min-width: 1024px) {
+            .upload-container {
+                max-width: 500px;
+            }
+            .upload-container h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-button" title="Voltar à tela inicial"></a>
+
+    <div class="upload-container">
+        <h2>Envie Suas Imagens</h2>
+        <form id="uploadForm" action="send_email.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder=" " required aria-describedby="email-error">
+                <label for="email">Seu e-mail</label>
+            </div>
+            <div class="form-group">
+                <input type="file" id="image" name="images[]" accept="image/jpeg,image/png,image/gif" multiple required aria-describedby="image-error">
+                <label for="image">Escolha suas imagens (máx. 5, até 5MB cada)</label>
+            </div>
+            <div class="error-container" id="error-container">
+                <ul id="error-list"></ul>
+                <button class="close-error" id="close-error" aria-label="Fechar mensagens de erro">×</button>
+            </div>
+            <div class="preview-container" id="preview-container"></div>
+            <p class="success-message" id="success-message">Imagens enviadas com sucesso! Você receberá um e-mail com suas imagens personalizadas em breve.</p>
+            <input type="submit" value="Enviar Imagens" id="submit-button">
+            <div class="progress-bar" id="progress-bar"></div>
+        </form>
+        <p>Após o envio, você receberá um e-mail com suas imagens personalizadas!</p>
+    </div>
+
+    <script>
+        const uploadForm = document.getElementById('uploadForm');
+        const imageInput = document.getElementById('image');
+        const emailInput = document.getElementById('email');
+        const previewContainer = document.getElementById('preview-container');
+        const errorContainer = document.getElementById('error-container');
+        const errorList = document.getElementById('error-list');
+        const closeError = document.getElementById('close-error');
+        const successMessage = document.getElementById('success-message');
+        const submitButton = document.getElementById('submit-button');
+        const progressBar = document.getElementById('progress-bar');
+        const maxFileSize = 5 * 1024 * 1024; // 5MB em bytes
+        let selectedFiles = [];
+
+        // Função para exibir erros
+        function displayErrors(errors) {
+            errorList.innerHTML = errors.map(error => `<li>${error}</li>`).join('');
+            errorContainer.style.display = errors.length ? 'block' : 'none';
+        }
+
+        // Fechar mensagens de erro
+        closeError.addEventListener('click', () => {
+            errorContainer.style.display = 'none';
+            errorList.innerHTML = '';
+        });
+
+        // Limpar erros específicos quando o usuário corrige o campo
+        emailInput.addEventListener('input', function() {
+            if (this.value.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value.trim())) {
+                this.classList.remove('invalid');
+                const errors = errorList.querySelectorAll('li').length
+                    ? Array.from(errorList.querySelectorAll('li'))
+                        .map(li => li.textContent)
+                        .filter(error => !error.includes('e-mail válido'))
+                    : [];
+                displayErrors(errors);
+            }
+        });
+
+        // Pré-visualização de múltiplas imagens
+        imageInput.addEventListener('change', function() {
+            const files = Array.from(this.files);
+            const errors = [];
+            previewContainer.innerHTML = '';
+            selectedFiles = [];
+
+            if (files.length === 0) {
+                errors.push('Selecione pelo menos uma imagem.');
+                imageInput.classList.add('invalid');
+            } else if (files.length > 5) {
+                errors.push('Você pode enviar no máximo 5 imagens.');
+                imageInput.classList.add('invalid');
+            }
+
+            const oversizedFiles = files.filter(file => file.size > maxFileSize);
+            if (oversizedFiles.length > 0) {
+                errors.push(`As seguintes imagens excedem o limite de 5MB: ${oversizedFiles.map(file => file.name).join(', ')}.`);
+                imageInput.classList.add('invalid');
+            }
+
+            const invalidFormatFiles = files.filter(file => !file.type.match(/image\/(jpeg|png|gif)/));
+            if (invalidFormatFiles.length > 0) {
+                errors.push(`As seguintes imagens têm formatos inválidos (apenas JPEG, PNG, GIF): ${invalidFormatFiles.map(file => file.name).join(', ')}.`);
+                imageInput.classList.add('invalid');
+            }
+
+            if (errors.length === 0) {
+                imageInput.classList.remove('invalid');
+                selectedFiles = files.slice(0, 5);
+                selectedFiles.forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const previewItem = document.createElement('div');
+                        previewItem.classList.add('preview-item');
+                        previewItem.innerHTML = `
+                            <img src="${e.target.result}" alt="Pré-visualização da imagem ${index + 1}">
+                            <button class="remove-image" data-index="${index}" aria-label="Remover imagem ${index + 1}">×</button>
+                        `;
+                        previewContainer.appendChild(previewItem);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            displayErrors(errors);
+        });
+
+        // Remover imagem da pré-visualização
+        previewContainer.addEventListener('click', function(event) {
+            if (event.target.classList.contains('remove-image')) {
+                const index = parseInt(event.target.dataset.index);
+                selectedFiles.splice(index, 1);
+                previewContainer.innerHTML = '';
+                selectedFiles.forEach((file, newIndex) => {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const previewItem = document.createElement('div');
+                        previewItem.classList.add('preview-item');
+                        previewItem.innerHTML = `
+                            <img src="${e.target.result}" alt="Pré-visualização da imagem ${newIndex + 1}">
+                            <button class="remove-image" data-index="${newIndex}" aria-label="Remover imagem ${newIndex + 1}">×</button>
+                        `;
+                        previewContainer.appendChild(previewItem);
+                    };
+                    reader.readAsDataURL(file);
+                });
+                // Atualizar input de arquivo
+                const dataTransfer = new DataTransfer();
+                selectedFiles.forEach(file => dataTransfer.items.add(file));
+                imageInput.files = dataTransfer.files;
+
+                // Atualizar erros após remoção
+                const errors = [];
+                if (selectedFiles.length === 0) {
+                    errors.push('Selecione pelo menos uma imagem.');
+                    imageInput.classList.add('invalid');
+                } else {
+                    imageInput.classList.remove('invalid');
+                }
+                displayErrors(errors);
+            }
+        });
+
+        // Validação do formulário e simulação de envio
+        uploadForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = emailInput.value.trim();
+            const files = selectedFiles;
+            const errors = [];
+
+            if (!email) {
+                errors.push('Por favor, insira um e-mail válido.');
+                emailInput.classList.add('invalid');
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                errors.push('O formato do e-mail é inválido.');
+                emailInput.classList.add('invalid');
+            } else {
+                emailInput.classList.remove('invalid');
+            }
+
+            if (files.length === 0) {
+                errors.push('Selecione pelo menos uma imagem.');
+                imageInput.classList.add('invalid');
+            } else if (files.length > 5) {
+                errors.push('Você pode enviar no máximo 5 imagens.');
+                imageInput.classList.add('invalid');
+            } else if (files.some(file => !file.type.match(/image\/(jpeg|png|gif)/))) {
+                const invalidFiles = files.filter(file => !file.type.match(/image\/(jpeg|png|gif)/));
+                errors.push(`As seguintes imagens têm formatos inválidos (apenas JPEG, PNG, GIF): ${invalidFiles.map(file => file.name).join(', ')}.`);
+                imageInput.classList.add('invalid');
+            } else if (files.some(file => file.size > maxFileSize)) {
+                const oversizedFiles = files.filter(file => file.size > maxFileSize);
+                errors.push(`As seguintes imagens excedem o limite de 5MB: ${oversizedFiles.map(file => file.name).join(', ')}.`);
+                imageInput.classList.add('invalid');
+            } else {
+                imageInput.classList.remove('invalid');
+            }
+
+            if (errors.length > 0) {
+                displayErrors(errors);
+                return;
+            }
+
+            // Simulação de envio: desativa o botão e mostra progresso
+            submitButton.disabled = true;
+            submitButton.value = 'Enviando...';
+            progressBar.classList.add('active');
+
+            // Simulação de sucesso
+            setTimeout(() => {
+                displayErrors([]);
+                successMessage.textContent = `${files.length} imagem${files.length > 1 ? 'ns' : ''} enviada${files.length > 1 ? 's' : ''} com sucesso! Você receberá um e-mail com suas imagens personalizadas em breve.`;
+                successMessage.style.display = 'block';
+                progressBar.classList.remove('active');
+                submitButton.disabled = false;
+                submitButton.value = 'Enviar Imagens';
+                uploadForm.reset();
+                previewContainer.innerHTML = '';
+                selectedFiles = [];
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 3000);
+                // Em um ambiente real, aqui seria feita a chamada para send_email.php
+                // uploadForm.submit();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
